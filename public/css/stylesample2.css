@@ -136,7 +136,7 @@ section {
 }
 
 /* Section background gradient & animation */
-.section-bg {
+/* .section-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -146,7 +146,7 @@ section {
   overflow: hidden;
   z-index: 0;
   background: radial-gradient(circle at center, rgba(255, 200, 0, 0.05), rgba(139, 0, 0, 0.2) 70%);
-}
+} */
 
 .particle {
   position: absolute;
@@ -363,6 +363,8 @@ nav ul li a:hover:after {
   position: relative;
   overflow: visible;
   z-index: 1;
+  display:flex;
+  flex-direction: column;
 }
 
 /* Fire particles - hidden by default */
@@ -485,6 +487,7 @@ nav ul li a:hover:after {
   border-bottom-right-radius: 10px;
   position: relative;
   z-index: 3;
+  flex: 1;
 }
 
 .card h3 {
