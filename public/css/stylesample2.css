@@ -153,7 +153,12 @@ section {
   bottom: -10px;
   width: 6px;
   height: 10px;
-  background: radial-gradient(circle, rgba(255, 230, 150, 1) 0%, rgba(255, 140, 0, 0.9) 50%, rgba(139, 0, 0, 0.7) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 230, 150, 1) 0%,
+    rgba(255, 140, 0, 0.9) 50%,
+    rgba(139, 0, 0, 0.7) 100%
+  );
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   box-shadow: 0 0 10px rgba(255, 140, 0, 0.9), 0 0 20px rgba(255, 69, 0, 0.6);
   animation: emberFloatAndFlicker 6s linear infinite;
@@ -161,12 +166,44 @@ section {
 }
 
 /* Slight variations */
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 5.5s; }
-.particle:nth-child(2) { left: 25%; width: 8px; height: 12px; animation-delay: 1.5s; animation-duration: 6.5s; }
-.particle:nth-child(3) { left: 50%; width: 7px; height: 11px; animation-delay: 3s; animation-duration: 5s; }
-.particle:nth-child(4) { left: 65%; animation-delay: 0.7s; animation-duration: 7s; }
-.particle:nth-child(5) { left: 80%; width: 9px; height: 13px; animation-delay: 2.5s; animation-duration: 6s; }
-.particle:nth-child(6) { left: 90%; width: 5px; height: 9px; animation-delay: 4s; animation-duration: 5.8s; }
+.particle:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 5.5s;
+}
+.particle:nth-child(2) {
+  left: 25%;
+  width: 8px;
+  height: 12px;
+  animation-delay: 1.5s;
+  animation-duration: 6.5s;
+}
+.particle:nth-child(3) {
+  left: 50%;
+  width: 7px;
+  height: 11px;
+  animation-delay: 3s;
+  animation-duration: 5s;
+}
+.particle:nth-child(4) {
+  left: 65%;
+  animation-delay: 0.7s;
+  animation-duration: 7s;
+}
+.particle:nth-child(5) {
+  left: 80%;
+  width: 9px;
+  height: 13px;
+  animation-delay: 2.5s;
+  animation-duration: 6s;
+}
+.particle:nth-child(6) {
+  left: 90%;
+  width: 5px;
+  height: 9px;
+  animation-delay: 4s;
+  animation-duration: 5.8s;
+}
 
 /* Movement with curve */
 @keyframes emberFloatAndFlicker {
@@ -191,9 +228,6 @@ section {
     opacity: 0;
   }
 }
-
-
-
 
 /* Header Styles */
 header {
@@ -275,6 +309,14 @@ nav ul li a:hover:after {
 }
 
 /* Hero Section */
+
+@property --rot {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+
 .hero {
   min-height: 100vh;
   display: flex;
@@ -286,9 +328,10 @@ nav ul li a:hover:after {
     rgba(255, 255, 255, 0.85),
     rgba(255, 249, 230, 0.85)
   );
+  --swastik-size: 500px;
 }
 
-.hero::before {
+/* .hero::before {
   content: "";
   position: absolute;
   top: 0;
@@ -302,15 +345,72 @@ nav ul li a:hover:after {
   animation: rotate 60s linear infinite;
   opacity: 0.15;
   z-index: 0;
+} */
+
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--swastik-size);
+  height: var(--swastik-size);
+  background-image: url("/images/swastik_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+  transform: translate(-50%, -50%) rotate(var(--rot));
+  animation: spin-rot-center 60s linear infinite;
+  pointer-events: none;
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* LEFT swastik  */
+.swastik-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--swastik-size);
+  height: var(--swastik-size);
+  background-image: url("/images/swastik_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: 0;
+  transform: translate(-50%, -50%) rotate(var(--rot));
+  animation: spin-rot-left 45s linear infinite reverse;
+  pointer-events: none;
+}
+
+/* RIGHT swastik */
+.swastik-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: var(--swastik-size);
+  height: var(--swastik-size);
+  background-image: url("/images/swastik_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  z-index: 0;
+  transform: translate(50%, -50%) rotate(var(--rot));
+  animation: spin-rot-right 50s linear infinite;
+  pointer-events: none;
+}
+
+/* Animate for rotating the swastik images */
+@keyframes spin-rot-center {
+  from { --rot: 0deg; }
+  to   { --rot: 360deg; }
+}
+@keyframes spin-rot-left {
+  from { --rot: 0deg; }
+  to   { --rot: 360deg; }
+}
+@keyframes spin-rot-right {
+  from { --rot: 0deg; }
+  to   { --rot: 360deg; }
 }
 
 .hero-content {
@@ -363,7 +463,7 @@ nav ul li a:hover:after {
   position: relative;
   overflow: visible;
   z-index: 1;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
@@ -532,7 +632,6 @@ nav ul li a:hover:after {
 }
 
 /* Gallery Section */
-/* Gallery Grid Layout */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -597,30 +696,31 @@ nav ul li a:hover:after {
 
 /* Zoom-in Animation */
 @keyframes lightboxZoomIn {
-  0% { opacity: 0; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Fire Particles */
-/* .lightbox-particle {
+
+.lightbox-particle {
   position: absolute;
-  bottom: -20px;
-  width: 6px;
-  height: 10px;
-  background: radial-gradient(circle, rgba(255, 230, 150, 1) 0%, rgba(255, 140, 0, 0.9) 50%, rgba(139, 0, 0, 0.7) 100%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  box-shadow: 0 0 10px rgba(255, 140, 0, 0.9), 0 0 20px rgba(255, 69, 0, 0.6);
-  animation: emberFloat 6s linear infinite, emberFlicker 0.8s infinite ease-in-out;
-  opacity: 0.85;
-  pointer-events: none;
-} */
- .lightbox-particle {
-  position: absolute;
-  background: radial-gradient(circle, rgba(255, 230, 150, 1) 0%, rgba(255, 140, 0, 0.9) 50%, rgba(139, 0, 0, 0.7) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 230, 150, 1) 0%,
+    rgba(255, 140, 0, 0.9) 50%,
+    rgba(139, 0, 0, 0.7) 100%
+  );
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(255, 140, 0, 0.9), 0 0 20px rgba(255, 69, 0, 0.6);
   opacity: 0.85;
-  animation: emberFloat var(--duration, 5s) linear forwards, emberFlicker 0.8s infinite ease-in-out;
+  animation: emberFloat var(--duration, 5s) linear forwards,
+    emberFlicker 0.8s infinite ease-in-out;
 }
 
 @keyframes emberFloat {
@@ -639,25 +739,23 @@ nav ul li a:hover:after {
 }
 
 @keyframes emberFlicker {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.3); }
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3);
+  }
 }
 
-
-.lightbox-particle:nth-child(2n) { width: 8px; height: 12px; }
-.lightbox-particle:nth-child(3n) { width: 5px; height: 9px; }
-
-/* @keyframes emberFloat {
-  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.9; }
-  30% { transform: translateY(-30vh) translateX(-5px) scale(1.1); opacity: 1; }
-  60% { transform: translateY(-60vh) translateX(5px) scale(0.9); opacity: 0.8; }
-  100% { transform: translateY(-100vh) translateX(-3px) scale(0.7); opacity: 0; }
+.lightbox-particle:nth-child(2n) {
+  width: 8px;
+  height: 12px;
 }
-
-@keyframes emberFlicker {
-  0%, 100% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.2); filter: brightness(1.3); }
-} */
+.lightbox-particle:nth-child(3n) {
+  width: 5px;
+  height: 9px;
+}
 
 /* Navigation Arrows */
 .lightbox .arrow {
@@ -672,8 +770,12 @@ nav ul li a:hover:after {
   z-index: 3000;
 }
 
-.lightbox .arrow.left { left: 30px; }
-.lightbox .arrow.right { right: 30px; }
+.lightbox .arrow.left {
+  left: 30px;
+}
+.lightbox .arrow.right {
+  right: 30px;
+}
 
 /* Close Button */
 .lightbox .close {
@@ -685,8 +787,6 @@ nav ul li a:hover:after {
   cursor: pointer;
   z-index: 3000;
 }
-
-
 
 /* Fees Section */
 .fees-table {
