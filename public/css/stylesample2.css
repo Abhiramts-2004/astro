@@ -316,7 +316,6 @@ nav ul li a:hover:after {
   inherits: false;
 }
 
-
 .hero {
   min-height: 100vh;
   display: flex;
@@ -347,7 +346,6 @@ nav ul li a:hover:after {
   z-index: 0;
 } */
 
-
 .hero::before {
   content: "";
   position: absolute;
@@ -367,6 +365,7 @@ nav ul li a:hover:after {
 
 /* LEFT swastik  */
 .swastik-left {
+  display: block;
   position: absolute;
   top: 50%;
   left: 0;
@@ -384,6 +383,7 @@ nav ul li a:hover:after {
 
 /* RIGHT swastik */
 .swastik-right {
+  display: block;
   position: absolute;
   top: 50%;
   right: 0;
@@ -401,16 +401,28 @@ nav ul li a:hover:after {
 
 /* Animate for rotating the swastik images */
 @keyframes spin-rot-center {
-  from { --rot: 0deg; }
-  to   { --rot: 360deg; }
+  from {
+    --rot: 0deg;
+  }
+  to {
+    --rot: 360deg;
+  }
 }
 @keyframes spin-rot-left {
-  from { --rot: 0deg; }
-  to   { --rot: 360deg; }
+  from {
+    --rot: 0deg;
+  }
+  to {
+    --rot: 360deg;
+  }
 }
 @keyframes spin-rot-right {
-  from { --rot: 0deg; }
-  to   { --rot: 360deg; }
+  from {
+    --rot: 0deg;
+  }
+  to {
+    --rot: 360deg;
+  }
 }
 
 .hero-content {
@@ -1128,6 +1140,9 @@ footer {
     bottom: -100px;
     left: -100px;
   }
+  .hero {
+    --swastik-size: 350px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1164,9 +1179,18 @@ footer {
   .hero p {
     font-size: 1.2rem;
   }
-
+  
   .hero::before {
     background-size: 300px;
+  }
+  .swastik-left,
+  .swastik-right {
+    display: none;
+  }
+
+  /* shrink center logo a bit for balance */
+  .hero {
+    --swastik-size: 250px;
   }
 
   .section-bg::before,
@@ -1231,11 +1255,14 @@ footer {
   h2 {
     font-size: 2rem;
   }
-
-  .hero::before {
-    background-size: 250px;
+  
+   .hero {
+    --swastik-size: 200px;
   }
 
+  .hero::before {
+    background-size: contain; /* keep aspect ratio inside the box */
+  }
   .section-bg::before {
     width: 200px;
     height: 200px;
